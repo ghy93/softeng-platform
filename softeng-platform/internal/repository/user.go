@@ -45,6 +45,7 @@ func (r *userRepository) Create(ctx context.Context, user *model.User) error {
 		time.Now(),
 	)
 	if err != nil {
+
 		return fmt.Errorf("failed to create user: %v", err)
 	}
 
@@ -55,12 +56,15 @@ func (r *userRepository) Create(ctx context.Context, user *model.User) error {
 	}
 	user.ID = int(id)
 
+
 	return nil
 }
 
 func (r *userRepository) GetByID(ctx context.Context, id int) (*model.User, error) {
 	query := `
+
 		SELECT id, username, nickname, email, password, avatar, description, face_photo, role, created_at, updated_at
+
 		FROM users WHERE id = ?
 	`
 
@@ -185,6 +189,7 @@ func (r *userRepository) Update(ctx context.Context, user *model.User) error {
 func (r *userRepository) UpdatePassword(ctx context.Context, userID int, hashedPassword string) error {
 	query := `UPDATE users SET password = ?, updated_at = ? WHERE id = ?`
 
+
 	result, err := r.db.ExecContext(ctx, query, hashedPassword, time.Now(), userID)
 	if err != nil {
 		return fmt.Errorf("failed to update password: %v", err)
@@ -199,4 +204,5 @@ func (r *userRepository) UpdatePassword(ctx context.Context, userID int, hashedP
 	}
 
 	return nil
+
 }

@@ -1,3 +1,4 @@
+
 package repository
 
 import (
@@ -35,3 +36,4 @@ func NewDatabase(connectionString string) (*Database, error) {
 func (db *Database) Close() error {
 	return db.DB.Close()
 }
+
